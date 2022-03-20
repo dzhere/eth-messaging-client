@@ -1,32 +1,38 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+	<v-app>
+		<v-app-bar app></v-app-bar>
+		<v-navigation-drawer model="drawer" app>
+			<v-list>
+				<v-list-item v-for="room in rooms" :key="room.id" link>
+					<v-list-item-content>
+						<v-list-item-title>{{ room.title }}</v-list-item-title>
+						<v-list-item-subtitle>{{ room.lastMessage }}</v-list-item-subtitle>
+					</v-list-item-content>
+				</v-list-item>
+			</v-list>
+		</v-navigation-drawer>
+		<v-main>
+			<v-container fluid="true">
+				<v-row>
+					<v-btn class="d-flex flex-center align-center">Connect wallet</v-btn>
+				</v-row>
+			</v-container>
+		</v-main>
+		<v-footer app></v-footer>
+	</v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-#nav {
-  padding: 30px;
-}
+export default {
+  name: 'App',
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  data: () => ({
+    drawer: null,
+	rooms: [
+		{ id: 1, title: '0x00', lastMessage: 'Hello 1' },
+		{ id: 2, title: '0x01', lastMessage: 'Hello 2' }
+	]
+  }),
+};
+</script>
